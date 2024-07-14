@@ -105,6 +105,9 @@ def pre_process_aifb():
         print("Raw Dataset not Available")
 
 
+load_dataset()
+pre_process_mutag()
+pre_process_aifb()
 #'Next Processing ---> Convert nt/n3 files to OWL KG Using ROBOT tool
 # For AIFB remove the #Thing description from KG to make it compatible with EvoLearner as we get 'PSet Terminals have to have unique names
 # As thing is already added from another instance, we can safely remove that manually to make it work

@@ -75,7 +75,7 @@ Ensure you have a `requirements.txt` file in your project directory. To install 
 pip install -r requirements.txt
 ```
 
-This command will automatically install all the libraries and packages listed in your `requirements.txt` file.
+This command will automatically install all the libraries and packages listed in your `requirements.txt` file. Install DGL library according to your GPU device availability.
 
 After completing these steps, your EDGE environment should be set up with all the necessary dependencies.
 
@@ -98,10 +98,8 @@ Follow the instructions on the website to download and install ROBOT. Ensure it'
 The Knowledge Graphs have been created using the same data scources i.e, files from DGL distribution and are readily provided in the framework, which can be used to execute the evaluation processes. They can also be recreated using the followings steps
 # First run the KG preprocessor file:
 ```shell
-python src/utils/preprocess_kgs.py
+python preprocess.py
 ```
-
-/home/iamroot/EDGE/src/utils/preprocess_kgs.py
 
 
 After running the preprocessor script, navigate to the directory containing the Knowledge Graphs (KGs) with the following command:
@@ -158,12 +156,7 @@ Then, move the bgs.owl file to data/KGs/
 
 Below are some example commands to illustrate how to use the EDGE framework. These examples assume you have already set up the environment per the installation guide.
 
-## Evaluating with Existing Prediction Data
-By default, the script evaluates using existing prediction data:
 
-```shell
-python main.py
-```
 
 ## Training Models with Specific Specifications
 To train models with specific models and/or datasets, use the `--train` flag along with `--model`, `--explainers`  and `--datasets` flags as needed:
@@ -196,7 +189,12 @@ If you wisth to train for all the explainers and datasets, you can simply omit t
   ```
 There is also support for prining results, in which you can specify the model you want to print results for, defaults to "RGCN"
 
-- Print Results for RGAT model
+- Print Results
+  ```shell
+  python main.py --print_results
+  ```
+
+- Print Results for specific using the model 
   ```shell
   python main.py --print_results --model RGAT
   ```
