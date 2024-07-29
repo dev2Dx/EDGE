@@ -92,65 +92,17 @@ Download the ROBOT tool from its official website for the latest release and ins
 Follow the instructions on the website to download and install ROBOT. Ensure it's properly installed and configured on your system for use with the EDGE framework.
 
 
+## Dataset Preprocessing
+The Knowledge Graphs have been created using the same data scources i.e, files from DGL distribution and are readily provided in the framework, which can be used to start  and run explainers. They can also be recreated following the steps mentioned in [PRE_STEPS](PRE_STEPS.md) file.
 
-## Navigating to the Knowledge Graphs Directory
-
-The Knowledge Graphs have been created using the same data scources i.e, files from DGL distribution and are readily provided in the framework, which can be used to execute the evaluation processes. They can also be recreated using the followings steps
-# First run the KG preprocessor file:
+If you have a linux based system, you can also easily execute all the preprocessing steps using a single script. First, provide the required permissions to the preprocessing script. Then execute the script.
 ```shell
-python preprocess.py
+chmod +x preprocess.sh
 ```
-
-
-After running the preprocessor script, navigate to the directory containing the Knowledge Graphs (KGs) with the following command:
 
 ```shell
-cd data/KGs
+./preprocess.sh
 ```
-
-## Converting the N3/NT files to OWL format
-
-```shell
-robot convert --input aifbfixed_complete_processed.n3 --output aifb.owl
-robot convert --input mutag_stripped_processed.nt --output mutag.owl
-
-```
-### Modifying the AIFB Dataset for Compatibility with EvoLearner
-
-When using the AIFB dataset with EvoLearner, you need to remove a specific line from the `aifb.owl` file to avoid the 'PSet Terminals have to have unique names' error.
-
-
-1. **Locate the File:**
-   Open the `aifb.owl` file. This file should be located in the dataset directory of your EDGE framework setup.
-
-2. **Find the Specific Line:**
-   Search for the line containing the following data:
-
-   \```
-   <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
-   \```
-
-   This line is typically around line 932, but it might vary slightly depending on the file version.
-
-3. **Remove the Line:**
-   Delete this entire line from the file. Be careful not to remove or alter any other lines.
-
-4. **Save the File:**
-   After removing the line, save the changes to `aifb.owl`.
-
-5. **Verify the Changes:**
-   Ensure that the modification is correct and the file is saved properly. This step is crucial for successfully using the AIFB dataset with EvoLearner.
-
-By following these steps, you'll make the AIFB dataset compatible with EvoLearner, avoiding potential processing errors.
-
-### Preprocessing BGS dataset
-
-Navigate to the folder containing BGS dataset at data/bgs-.....
-In the terminal, run the following command.
-``` shell
-robot merge --input Lexicon_SourceInfo.nt --input Geochronology_DivisionList.nt --input Lexicon_Class.nt --input Geochronology_Scheme.nt --input Lexicon_LithologyComponent.nt --input Lexicon_SpatialScope.nt --input EarthMaterialClass.nt --input EarthMaterialClass_RockDummy.nt --input EarthMaterialClass_RockComposite.nt --input Lexicon_LithogeneticType.nt --input Lexicon_DefinitionStatus.nt --input Geochronology.nt --input Lexicon_NamedRockUnit.nt --input Lexicon_RockUnitRank.nt --input Geochronology_AgeDeterminationType.nt --input Geochronology_RankList.nt --input EarthMaterialClass_RockComponent.nt --input Lexicon_EquivalentName.nt --input EarthMaterialClass_ComponentRank.nt --input 625KGeologyMap_Unit.nt --input 625KGeologyMap_Rank.nt --input 625KGeologyMap.nt --input Lexicon.nt --input Lexicon_Stratotype.nt --input Lexicon_StratotypeType.nt --input Spatial.nt --input 625KGeologyMap_Fault.nt --input 625KGeologyMap_Dyke.nt --input Lexicon_Theme.nt --input EarthMaterialClass_RockName.nt --input Geochronology_Boundary.nt --input EarthMaterialClass_ComponentRelation.nt --input Lexicon_EquivalenceType.nt --input Lexicon_ShapeType.nt --input Geochronology_Division.nt --input Geochronology_Rank.nt --output bgs.owl
-```
-Then, move the bgs.owl file to data/KGs/
 
 # Example Commands for Using the EDGE Framework
 
