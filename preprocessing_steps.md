@@ -1,7 +1,7 @@
-## Navigating to the Knowledge Graphs Directory
+# Manual pre.processing of the knowledge Graphs
 
 The Knowledge Graphs have been created using the same data scources i.e, files from DGL distribution and are readily provided in the framework, which can be used to start  and run explainers. They can also be recreated using the followings steps
-# First run the KG preprocessor file:
+## First run the KG preprocessor file:
 ```shell
 python preprocess_kg.py
 ```
@@ -20,7 +20,7 @@ robot convert --input mutag_stripped_processed.nt --output mutag.owl
 
 ```
 
-### Preprocessing BGS dataset
+## Preprocessing BGS dataset
 
 Navigate to the folder containing BGS dataset :
 ```shell
