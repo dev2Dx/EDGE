@@ -171,5 +171,4 @@ cython_debug/
 try.py
 try.ipynb
 .vscode
-
 data/*
