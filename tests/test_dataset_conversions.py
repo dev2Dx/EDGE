@@ -1,5 +1,6 @@
-from rdflib import Graph
 import os
+
+from rdflib import Graph
 
 
 def load_and_count_elements(file_path):

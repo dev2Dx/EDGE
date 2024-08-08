@@ -19,16 +19,11 @@ from src.dglnn_local.subgraphx import NodeSubgraphX
 from src.gnn_model.configs import get_configs
 from src.gnn_model.dataset import RDFDatasets
 from src.gnn_model.GAT import RGAT
-from src.gnn_model.hetro_features import HeteroFeature
+from src.gnn_model.hetero_features import HeteroFeature
 from src.gnn_model.RGCN import RGCN
-from src.gnn_model.utils import (
-    calculate_metrics,
-    gen_evaluations,
-    get_lp_aifb_fid,
-    get_lp_bgs_fid,
-    get_lp_mutag_fid,
-    get_nodes_dict,
-)
+from src.gnn_model.utils import (calculate_metrics, gen_evaluations,
+                                 get_lp_aifb_fid, get_lp_bgs_fid,
+                                 get_lp_mutag_fid, get_nodes_dict)
 from src.logical_explainers.CELOE import train_celoe
 from src.logical_explainers.EvoLearner import train_evo
 

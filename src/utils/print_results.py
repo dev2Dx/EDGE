@@ -75,5 +75,5 @@ def print_results(model_name="RGCN"):
                     exp_f1_score,
                 ]
             )
-
+    table.sortby = "Dataset"
     print(table)

@@ -1,13 +1,12 @@
 import os
+from urllib.parse import quote, urlparse
 
 import rdflib as rdf
 from rdflib import XSD, Graph, Literal
-from src.dglnn_local.RDFDataset import AIFBDataset, AMDataset, BGSDataset, MUTAGDataset
-from rdflib import Graph
 from rdflib.graph import URIRef
 
-from urllib.parse import quote, urlparse
-from rdflib import Graph
+from src.dglnn_local.RDFDataset import (AIFBDataset, AMDataset, BGSDataset,
+                                        MUTAGDataset)
 
 invalid_uri_chars = '<>" {}|\\^`'
 

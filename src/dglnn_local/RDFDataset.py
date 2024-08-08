@@ -15,15 +15,8 @@ import dgl.backend as F
 import networkx as nx
 import numpy as np
 from dgl.data.dgl_dataset import DGLBuiltinDataset
-from dgl.data.utils import (
-    _get_dgl_url,
-    generate_mask_tensor,
-    idx2mask,
-    load_graphs,
-    load_info,
-    save_graphs,
-    save_info,
-)
+from dgl.data.utils import (_get_dgl_url, generate_mask_tensor, idx2mask,
+                            load_graphs, load_info, save_graphs, save_info)
 
 __all__ = ["AIFBDataset", "MUTAGDataset", "BGSDataset", "AMDataset"]
 

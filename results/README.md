@@ -6,13 +6,13 @@ This  note outlines the structure and contents of the Results folder, which incl
 
 - **Evaluations**
 - **Predictions**
-- **Explanation Visulaizations**
+- **Explanation Visualizations**
 
 
 
 ### Evaluation
 
-Contains evaluation results for all explainers in individual file inside separate folders for each GNN model( RGCN and RGAT) in JSON format.
+Contains evaluation results for all explainers in individual file inside separate folders for each GNN model(RGCN and RGAT) in JSON format.
 
 
 ### Prediction
@@ -22,4 +22,4 @@ This folder contains predictions from all explainers, organized in separate subf
 
 ### Explanation Visulaizations
 
-This directory contains visualization images produced for the explanations  produced by various GNN explainers,
+This directory contains visualization images produced as explanations by various GNN explainers.

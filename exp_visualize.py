@@ -4,9 +4,9 @@
 
 # The visulization result is stored in results/exp_visualizations
 
-from src.utils.visualize_hetero_graphs import visualize_hd
-from src.Explainer import Explainer
 from src.dglnn_local.subgraphx import NodeSubgraphX
+from src.Explainer import Explainer
+from src.utils.visualize_hetero_graphs import visualize_hd
 
 vis_dataset = "mutag"
 vis_explainer = Explainer(explainers=[], dataset=vis_dataset, model_name="RGCN")
