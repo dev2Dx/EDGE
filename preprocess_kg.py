@@ -19,6 +19,13 @@ def is_valid_uri(uri: str) -> bool:
     return True
 
 
+def check_data_dirs():
+    data_paths = ["data", "data/KGs"]
+    for path in data_paths:
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+
 def load_dataset(root="data/"):
     AIFBDataset(raw_dir=root)
     MUTAGDataset(raw_dir=root)
@@ -161,6 +168,7 @@ def pre_process_bgs():
 
 
 load_dataset()
+check_data_dirs()
 pre_process_mutag()
 pre_process_aifb()
 pre_process_bgs()

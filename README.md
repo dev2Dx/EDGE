@@ -83,7 +83,7 @@ If you are using GPU devices, install the GPU version of DGL from official DGL w
 
 ## Installing the ROBOT Tool
 
-For converting N3/NT files to the OWL file format within the EDGE framework, the ROBOT (RObotic Batch Ontology) tool is required. 
+For converting N3/NT files to the OWL file format within the EDGE framework, the ROBOT (RObotic Batch Ontology) tool is required. However, if you want to use the Knowledge Graph data that are readily avilable, you can skip the installation of ROBOT library and also the preprocessing steps.
 
 Download the ROBOT tool from its official website for the latest release and installation instructions:
 
@@ -93,7 +93,18 @@ Follow the instructions on the website to download and install ROBOT. Ensure it'
 
 
 ## Dataset Preprocessing
-The Knowledge Graphs have been created using the same data scources i.e, files from DGL distribution and are readily provided in the framework, which can be used to start  and run explainers. They can also be recreated following the steps mentioned in [PRE_STEPS](PRE_STEPS.md) file.
+The Knowledge Graphs have been created using the same data scources i.e, files from DGL distribution and are readily provided in the framework, which can be used to start  and run explainers. They are pre-processed and are avialble in the directory called KGs.zip. To unzip and place them in data/KGs folder using the command:
+```shell
+unzip KGs.zip -d data/KGs/ 
+```
+If the data/KGs dir is not available or deleted, you might have to create the dir before you extract the zip files.
+
+```shell
+mkdir data
+mkdir data/KGs
+```
+
+If you want to re-create the Knowledge Graphs yourself, you can do so by following the steps mentioned in [PRE_STEPS](preprocessing_steps.md) file.
 
 If you have a linux based system, you can also easily execute all the preprocessing steps using a single script. First, provide the required permissions to the preprocessing script. Then execute the script.
 ```shell

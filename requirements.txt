@@ -1,5 +1,4 @@
 torch==2.2.1
-dgl -f https://data.dgl.ai/wheels/torch-2.2/repo.html
 tqdm==4.66.1
 networkx==3.2.1
 matplotlib==3.8.2

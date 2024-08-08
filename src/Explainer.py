@@ -21,9 +21,14 @@ from src.gnn_model.dataset import RDFDatasets
 from src.gnn_model.GAT import RGAT
 from src.gnn_model.hetro_features import HeteroFeature
 from src.gnn_model.RGCN import RGCN
-from src.gnn_model.utils import (calculate_metrics, gen_evaluations,
-                                 get_lp_aifb_fid, get_lp_bgs_fid,
-                                 get_lp_mutag_fid, get_nodes_dict)
+from src.gnn_model.utils import (
+    calculate_metrics,
+    gen_evaluations,
+    get_lp_aifb_fid,
+    get_lp_bgs_fid,
+    get_lp_mutag_fid,
+    get_nodes_dict,
+)
 from src.logical_explainers.CELOE import train_celoe
 from src.logical_explainers.EvoLearner import train_evo
 
@@ -247,13 +252,16 @@ class Explainer:
         self.create_lp()
 
     def _run_evo(self):
-        print(f"Training EvoLearner (prediction) on {self.dataset}")
-        target_dict_evo_pred, duration_evo_pred, _ = train_evo(
-            learning_problems=self.learning_problem_pred, kg=self.dataset
-        )
-        print(
-            f"Total time taken for EvoLearner (prediction)  on {self.dataset}: {duration_evo_pred:.2f}"
-        )
+        # pred ability of EvoLearner can be computed using ground truth LPs.
+        # uncomment the code below and save the predictions into a new column in pred_df
+        # predicition w.r.t Ground truths can examine the capability of EvoLearner as independent node classifier
+        # print(f"Training EvoLearner (prediction) on {self.dataset}")
+        # target_dict_evo_pred, duration_evo_pred, _ = train_evo(
+        #     learning_problems=self.learning_problem_pred, kg=self.dataset
+        # )
+        # print(
+        #     f"Total time taken for EvoLearner (prediction)  on {self.dataset}: {duration_evo_pred:.2f}"
+        # )
 
         print(f"Training EvoLearner (explanation) on {self.dataset}")
         target_dict_evo_exp, duration_evo_exp, explanation_dict_evo = train_evo(
@@ -264,29 +272,32 @@ class Explainer:
         )
 
         self.time_traker["EvoLearner"] = duration_evo_exp
-        self.pred_df["Evo(pred)"] = self.pred_df["IRI"].map(target_dict_evo_pred)
-        self.pred_df["Evo(exp)"] = self.pred_df["IRI"].map(target_dict_evo_exp)
+        # self.pred_df["Evo(pred)"] = self.pred_df["IRI"].map(target_dict_evo_pred)
+        self.pred_df["EvoLearner"] = self.pred_df["IRI"].map(target_dict_evo_exp)
         self.explanations["EvoLearner"] = explanation_dict_evo
-        prediction_prefromance = calculate_metrics(
-            self.pred_df["Ground Truths"], self.pred_df["Evo(pred)"]
+        prediction_performance = calculate_metrics(
+            self.pred_df["Ground Truths"], self.pred_df["EvoLearner"]
         )
-        explanation_prefromance = calculate_metrics(
-            self.pred_df["GNN Preds"], self.pred_df["Evo(exp)"]
+        explanation_performance = calculate_metrics(
+            self.pred_df["GNN Preds"], self.pred_df["EvoLearner"]
         )
-        celoe_perfromance = gen_evaluations(
-            prediction_perfromance=prediction_prefromance,
-            explanation_perfromance=explanation_prefromance,
+        celoe_performance = gen_evaluations(
+            prediction_performance=prediction_performance,
+            explanation_performance=explanation_performance,
         )
-        self.evaluations["EvoLearner"] = celoe_perfromance
+        self.evaluations["EvoLearner"] = celoe_performance
 
     def _run_celoe(self):
-        print(f"Training CELOE (prediction) on {self.dataset}")
-        target_dict_celoe_pred, duration_celoe_pred, _ = train_celoe(
-            learning_problems=self.learning_problem_pred, kg=self.dataset
-        )
-        print(
-            f"Total time taken for CELOE (prediction)  on {self.dataset}: {duration_celoe_pred:.2f}"
-        )
+        # pred ability of CELOE can be computed using ground truth LPs.
+        # uncomment the code below and save the predictions into a new column in pred_df
+        # predicition w.r.t Ground truths can examine the capability of CELOE as independent node classifier
+        # print(f"Training CELOE (prediction) on {self.dataset}")
+        # target_dict_celoe_pred, duration_celoe_pred, _ = train_celoe(
+        #     learning_problems=self.learning_problem_pred, kg=self.dataset
+        # )
+        # print(
+        #     f"Total time taken for CELOE (prediction)  on {self.dataset}: {duration_celoe_pred:.2f}"
+        # )
 
         print(f"Training CELOE (explanation) on {self.dataset}")
         target_dict_celoe_exp, duration_celoe_exp, explanation_dict_celoe = train_celoe(
@@ -297,21 +308,21 @@ class Explainer:
         )
 
         self.time_traker["CELOE"] = duration_celoe_exp
-        self.pred_df["CELOE(pred)"] = self.pred_df["IRI"].map(target_dict_celoe_pred)
-        self.pred_df["CELOE(exp)"] = self.pred_df["IRI"].map(target_dict_celoe_exp)
+        # self.pred_df["CELOE(pred)"] = self.pred_df["IRI"].map(target_dict_celoe_pred)
+        self.pred_df["CELOE"] = self.pred_df["IRI"].map(target_dict_celoe_exp)
         self.explanations["CELOE"] = explanation_dict_celoe
 
-        prediction_prefromance = calculate_metrics(
-            self.pred_df["Ground Truths"], self.pred_df["CELOE(pred)"]
+        prediction_performance = calculate_metrics(
+            self.pred_df["Ground Truths"], self.pred_df["CELOE"]
         )
-        explanation_prefromance = calculate_metrics(
-            self.pred_df["GNN Preds"], self.pred_df["CELOE(exp)"]
+        explanation_performance = calculate_metrics(
+            self.pred_df["GNN Preds"], self.pred_df["CELOE"]
         )
-        celoe_perfromance = gen_evaluations(
-            prediction_perfromance=prediction_prefromance,
-            explanation_perfromance=explanation_prefromance,
+        celoe_performance = gen_evaluations(
+            prediction_performance=prediction_performance,
+            explanation_performance=explanation_performance,
         )
-        self.evaluations["CELOE"] = celoe_perfromance
+        self.evaluations["CELOE"] = celoe_performance
 
     def _run_pgexplainer(self, print_explainer_loss=True):
 
@@ -364,17 +375,17 @@ class Explainer:
         pg_preds = dict(zip(self.test_idx.tolist(), exp_pred_pg))
         self.pred_df["PGExplainer"] = self.pred_df["idx"].map(pg_preds)
 
-        prediction_prefromance = calculate_metrics(
+        prediction_performance = calculate_metrics(
             self.pred_df["Ground Truths"], self.pred_df["PGExplainer"]
         )
-        explanation_prefromance = calculate_metrics(
+        explanation_performance = calculate_metrics(
             self.pred_df["GNN Preds"], self.pred_df["PGExplainer"]
         )
-        pg_perfromance = gen_evaluations(
-            prediction_perfromance=prediction_prefromance,
-            explanation_perfromance=explanation_prefromance,
+        pg_performance = gen_evaluations(
+            prediction_performance=prediction_performance,
+            explanation_performance=explanation_performance,
         )
-        self.evaluations["PGExplainer"] = pg_perfromance
+        self.evaluations["PGExplainer"] = pg_performance
 
         dur_pg = t1 - t0
         self.time_traker["PGExplainer"] = dur_pg
@@ -400,17 +411,17 @@ class Explainer:
         dur_sgx = t1 - t0
         self.time_traker["SubGraphX"] = dur_sgx
 
-        prediction_prefromance = calculate_metrics(
+        prediction_performance = calculate_metrics(
             self.pred_df["Ground Truths"], self.pred_df["SubGraphX"]
         )
-        explanation_prefromance = calculate_metrics(
+        explanation_performance = calculate_metrics(
             self.pred_df["GNN Preds"], self.pred_df["SubGraphX"]
         )
-        sgx_perfromance = gen_evaluations(
-            prediction_perfromance=prediction_prefromance,
-            explanation_perfromance=explanation_prefromance,
+        sgx_performance = gen_evaluations(
+            prediction_performance=prediction_performance,
+            explanation_performance=explanation_performance,
         )
-        self.evaluations["SubGraphX"] = sgx_perfromance
+        self.evaluations["SubGraphX"] = sgx_performance
 
         print(f"Total time taken for SubGraphX  on {self.dataset}: {dur_sgx:.2f}")
 
